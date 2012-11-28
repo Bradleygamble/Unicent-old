@@ -5,6 +5,14 @@ class SQLQuery
 
 	protected $_db_handle;
 	protected $_result;
+	protected $_build = '';
+
+	public function hi()
+	{
+
+		echo 'hi';
+
+	}
 
 	function connect($address, $account, $password, $name)
 	{
@@ -54,23 +62,46 @@ class SQLQuery
 
 	}
 
-	function select_all()
+	function get_all($table)
 	{
 
-		$query = 'SELECT * FROM `' . $this->_table . '`';
+		$query = 'SELECT * FROM `' . $table . '`';
 
 		return $this->query($query);
 
 	}
 
-	function select($value = array())
+	function get($table, $value = array())
 	{
 
 		$value = '`' . implode('`, `', $value) . '`';
 
-		$query = 'SELECT ' . $value . ' FROM `' . $this->_table . '`';
+		$query = 'SELECT ' . $value . ' FROM `' . $table . '`';
 
 		return $this->query($query);
+
+	}
+
+	function where($data = array())
+	{
+
+		foreach($data as $data_key => $data_value)
+		{
+
+			if($this->_build == '')
+			{
+
+				$this->_build = '`' . $data_key . '` = \'' . $data_value . '\'';
+
+			}
+			else
+			{
+
+				$this->_build = ' AND `' . $data_key . '` = \'' . $data_value . '\'';
+
+			}
+
+		} 
 
 	}
 

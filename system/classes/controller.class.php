@@ -8,6 +8,7 @@ class Controller
 	protected $_action;
 	protected $_template;
 	protected $_load;
+	protected $_dev;
 
 	function __construct($model, $controller, $action)
 	{
@@ -15,9 +16,11 @@ class Controller
 		$this->_controller = $controller;
 		$this->_action = $action;
 		$this->_model = $model;
+		$this->_dev = new Dev();
 
 		$this->$model = new $model;
 		$this->_template = new Template($controller, $action);
+		$this->db = new SQLQuery();
 
 	}
 
@@ -41,14 +44,14 @@ class Controller
 		if(file_exists( ROOT . DS . 'application' . DS . 'modules' . DS . $load_file . '.php'))
 		{
 
-			echo 'users module didn\'t exist';
+			if(DEV_LOGS == 'On') { $this->_dev->devlog('Loaded user module [' . $load_file . ']'); }
 			require_once( ROOT . DS . 'application' . DS . 'modules' . DS . $load_file . '.php');
 
 		}
 		else
 		{
 
-			echo 'the module is a system module';
+			if(DEV_LOGS == 'On') { $this->_dev->devlog('Loaded system module [' . $load_file . ']'); }
 			require_once( ROOT . DS . 'system' . DS . 'modules' . DS . $load_file . '.php');
 
 		}

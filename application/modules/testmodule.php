@@ -1,3 +1,4 @@
+
 <?php
 
 class Test
@@ -6,14 +7,14 @@ class Test
 	public function __construct()
 	{
 
-		echo 'Made';
+		echo 'asdf';
 
 	}
 
 	public function test()
 	{
 	
-		echo 'Woop!';
+		echo 'asdfasdfasdf!';
 
 	}
 

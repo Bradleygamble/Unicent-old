@@ -19,7 +19,7 @@ class Database
 		if(DB_HOST == '' || DB_USER == '' || DB_DATA == '')
 		{
 			$template->free_render(ROOT . DS . 'system' . DS . 'errors' . DS . 'mysqlconferr.php');
-			die();
+			//die();
 		}
 
 		$connection = mysql_connect(DB_HOST, DB_USER, DB_PASS);

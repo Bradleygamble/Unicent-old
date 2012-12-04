@@ -11,16 +11,23 @@ class Load
 		$template = new Template();
 	}
 
-	public function module($file)
+	public function module($file, $classname = FALSE)
 	{
 
 		if(file_exists(ROOT . DS . 'application' . DS . 'modules' . DS . $file . '.php'))
 		{
 			include ROOT . DS . 'application' . DS . 'modules' . DS . $file . '.php';
 
-			$loaded = new $file;
+			$UN =& get_instance();
 
-			return $loaded;
+			if($classname)
+			{
+				$UN->$classname = new $file();
+			}
+			else
+			{
+				$UN->$file = new $file();
+			}
 		}
 		else
 		{

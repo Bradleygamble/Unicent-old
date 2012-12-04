@@ -8,8 +8,6 @@ class Index extends Controller
 		parent::__construct();
 
 		$this->template->render('index');
-
-		$this->load->module('test');
 	}
 
 }

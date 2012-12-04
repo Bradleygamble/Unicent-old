@@ -113,6 +113,11 @@ function hook()
 
 }
 
+function get_instance()
+{
+	return Controller::get_instance();
+}
+
 function __autoload($class)
 {
 

@@ -3,70 +3,39 @@
 class Template
 {
 
-	protected $variables = array();
-	protected $_controller;
-	protected $_action;
-
-	function __construct($controller, $action)
+	public function __construct()
 	{
-
-		$this->_controller = $controller;
-		$this->_action = $action;
-
+		
 	}
 
-	function render($data)
+	public function render($view, $data = array(), $return = FALSE)
 	{
-
-		foreach($data as $data_key => $data_value) 
+		if(file_exists(ROOT . DS . 'application' . DS . 'views' . DS . $view))
 		{
-			$this->variables[$data_key] = $data_value;
+			if($return == FALSE)
+			{
+				include ROOT . DS . 'application' . DS . 'views' . DS . $view;
+			}
+			else
+			{
+				return file_get_contents($view);
+			}
 		}
+	}
 
-		$output = '';
-
-		//extract($this->variables);
-
-		if(file_exists( ROOT . DS . 'www' . DS  . $this->_controller . DS . 'header.php'))
+	public function free_render($view, $return = FALSE)
+	{
+		if(file_exists($view))
 		{
-
-			$output .= file_get_contents( ROOT . DS . 'www' . DS  . $this->_controller . DS . 'header.php');
-
+			if($return == FALSE)
+			{
+				include $view;
+			}
+			else
+			{
+				return file_get_contents($view);
+			}
 		}
-		else 
-		{
-
-			//file_get_contents ( ROOT . DS . 'www' . DS  . 'header.php');
-
-		}
-
-		$output .= file_get_contents ( ROOT . DS . 'www' . DS . $this->_controller . DS . $this->_action . '.php');
-
-		if(file_exists(ROOT . DS . 'www' . DS . $this->_controller . DS . 'footer.php'))
-		{
-
-			$output .= file_get_contents ( ROOT . DS . 'www' . DS . $this->_controller . DS . 'footer.php');
-
-		}
-		else
-		{
-
-			//file_get_contents ( ROOT . DS . 'www' . DS . 'footer.php');
-
-		}
-
-		foreach($this->variables as $find_key => $find_value)
-		{
-
-			$find[] = '{[ ' . $find_key . ' ]}';
-			$replace[] = $find_value;
-
-		}
-
-		$output = str_replace($find, $replace, $output);
-
-		echo $output;
-
 	}
 
 }

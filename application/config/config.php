@@ -1,10 +1,21 @@
 <?php
 
-/** This is your config! **/
+/*
+ *		This is your configuration
+ */
 
-define('DEVELOPMENT_ENVIRONMENT', FALSE);
+// This can be set to 'development' to enable errors
+define('ENVIRONMENT', 'development');
 
-define('DB_NAME', '');
-define('DB_USER', '');
-define('DB_PASSWORD', '');
-define('DB_HOST', '');
+// This is used for your database configuration
+// This is your hostname
+define('DB_HOST', 'localhost');
+
+// This is your username
+define('DB_USER', 'root');
+
+// This is your password
+define('DB_PASS', '');
+
+// This is the database you wish to connect to
+define('DB_DATA', '');

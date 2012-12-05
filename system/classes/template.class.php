@@ -126,10 +126,10 @@ class Template
 
 	private function _parse_vars($input, $array)
 	{	
+        $this->stack = array();
+        $this->input = $array;
 		
 		$this->parsed = str_replace('<', '<?php echo \'<\'; ?>', $input);
-        $this->parsed = preg_replace('~\{FOR:(\w+)\}~', '<?php foreach ($this->data[\'$1\'] as $ELEMENT): $this->wrap($ELEMENT); ?>', $this->parsed);
-        $this->parsed = preg_replace('~\{/FOR:(\w+)\}~', '<?php $this->unwrap(); endforeach; ?>', $this->parsed);
         $this->parsed = preg_replace('~\{\?\}~', '<?php', $this->parsed);
         $this->parsed = preg_replace('~\{/\?\}~', '?>', $this->parsed);
 		$this->parsed = preg_replace('~\{(\w+), \"(\w+)\"\}~', '<?php $this->_show_array(\'$1\', \'$2\'); ?>', $this->parsed);

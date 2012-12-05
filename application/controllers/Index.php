@@ -13,9 +13,7 @@ class Index extends Controller
 
 	public function index()
 	{
-		$hi = array('hi' => array('0' => 'hello', '1' => 'test'));
-
-		$this->data = $hi;
+		$this->data = array(array('hello' => 'first', 'hi' => 'second'));
 
 		$this->template->render('index/index', $this->data);
 	}

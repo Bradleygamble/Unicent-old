@@ -1,9 +1,7 @@
 Unicent PHP Framework
 
-	This can be the documentation!
+Database
 
-	Database
+	$this->db->get($column, $table);
 
-		$this->db->get($column, $table);
-
-			$column can be a string or an array. This can also just be left as '*' to select all
+		$column can be a string or an array. This can also just be left as '*' to select all

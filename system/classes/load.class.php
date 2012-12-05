@@ -13,7 +13,6 @@ class Load
 
 	public function module($file, $classname = FALSE)
 	{
-
 		if(file_exists(ROOT . DS . 'application' . DS . 'modules' . DS . $file . '.php'))
 		{
 			include ROOT . DS . 'application' . DS . 'modules' . DS . $file . '.php';
@@ -33,7 +32,6 @@ class Load
 		{
 			$template->free_render(ROOT . DS . 'system' . DS . 'errors' . DS . 'loaderr.php');
 		}
-
 	}
 
 }

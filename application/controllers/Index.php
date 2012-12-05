@@ -9,6 +9,10 @@ class Index extends Controller
 	{
 		parent::__construct();
 
+	}
+
+	public function index()
+	{
 		$hi = array('hi' => array('0' => 'hello', '1' => 'test'));
 
 		$this->data = $hi;

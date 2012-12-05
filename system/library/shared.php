@@ -79,7 +79,13 @@ function unregister_globals()
 function hook()
 {
 
+	include ROOT . DS . 'system' . DS . 'classes' . DS . 'router.php';
+
 	global $url;
+
+	$controller = '';
+	$function = 'index';
+	$action = '';
 
 	$url_array = array();
 	$url_array = explode('/', $url);
@@ -88,13 +94,22 @@ function hook()
 		$url_array = array('0' => 'index', '1' => 'index');
 	}
 
-	$controller = $url_array[0];
+	// 	We'll have a look in our routes to see if we have this rooted
+	$router = new Router();
+
+	$controller = $router->route($url_array[0]);
 	array_shift($url_array);
 
-	$function = $url_array[0];
-	array_shift($url_array);
+	if(isset($url_array[0]))
+	{
+		$function = $url_array[0];
+		array_shift($url_array);
+	}
 
-	$action = $url_array;
+	if(isset($url_array))
+	{
+		$action = $url_array;
+	}
 
 	$call = $controller;
 	$controller = ucfirst($controller);
@@ -104,7 +119,7 @@ function hook()
 
 	if((int)method_exists($controller, $function))
 	{
-		call_user_func(array($run, $function), $action);
+		call_user_func_array(array($run, $function), $action);
 	}
 	else
 	{

@@ -92,12 +92,12 @@ class Database
 			if($value == '*')
 			{	
 				// 		Set the select to be all
-				$this->select = $value;
+				$this->select = $this->_sanitize($value);
 			}
 			else
 			{	
 				//		We don't have any select data, so we'll start fresh
-				$this->select = "`" . $value . "`";
+				$this->select = "`" . $this->_sanitize($value) . "`";
 			}
 		}
 		
@@ -127,11 +127,11 @@ class Database
 		{
 			if($this->where == '')
 			{
-				$this->where = " WHERE `" . $key . "`='" . $value . "' ";
+				$this->where = " WHERE `" . $this->_sanitize($key) . "`='" . $this->_sanitize($value) . "' ";
 			}
 			else
 			{
-				$this->where .= "AND `" . $key . "`='" . $value . "' ";
+				$this->where .= "AND `" . $this->_sanitize($key) . "`='" . $this->_sanitize($value) . "' ";
 			}
 		}
 	}
@@ -151,7 +151,7 @@ class Database
 			{
 				$loop++;
 
-				$this->where .= "`" . $key . "`='" . $value . "'";
+				$this->where .= "`" . $this->_sanitize($key) . "`='" . $this->_sanitize($value) . "'";
 
 				if($loops != 1 && $loops != $loop)
 				{
@@ -176,7 +176,7 @@ class Database
 			{
 				$loop++;
 
-				$this->where .= "`" . $key . "`='" . $value . "'";
+				$this->where .= "`" . $this->_sanitize($key) . "`='" . $this->_sanitize($value) . "'";
 
 				if($loops != 1 && $loops != $loop)
 				{
@@ -193,7 +193,7 @@ class Database
 			$this->limit = NULL;
 		}
 
-		$this->limit = "LIMIT " . $start . ", " . $end;
+		$this->limit = "LIMIT " . $this->_sanitize($start) . ", " . $this->_sanitize($end);
 	}
 
 	public function order_by($column, $direction)
@@ -205,11 +205,11 @@ class Database
 
 		if($this->order == NULL)
 		{
-			$this->order = "ORDER BY " . $column . ' ' . $direction;
+			$this->order = "ORDER BY " . $this->_sanitize($column) . ' ' . $this->_sanitize($direction);
 		}
 		else
 		{
-			$this->order = ", " . $column . ' ' . $direction;
+			$this->order = ", " . $this->_sanitize($column) . ' ' . $this->_sanitize($direction);
 		}
 	}
 
@@ -244,6 +244,14 @@ class Database
 	private function _run($query)
 	{
 		$this->result = mysql_query($query);
+	}
+
+	private function _sanitize($string)
+	{
+		$string = stripslashes($string);
+		$string = mysql_real_escape_string($string);
+
+		return $string;
 	}
 
 }

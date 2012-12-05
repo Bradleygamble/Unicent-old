@@ -10,6 +10,7 @@ class Controller extends Load
 
 		$this->template = new Template();
 		$this->load = new Load();
+		$this->route = new Router();
 	}
 
 	public function get_instance()
